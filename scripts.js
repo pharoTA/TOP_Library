@@ -1,10 +1,11 @@
-const myLibrary = [];
-
 function Book(title, pages, author, isRead) {
     this.title = title;
     this.pages = pages;
     this.author = author;
     this.isRead = isRead;
+    this.toggleIsRead = function toggleIsRead() {
+        this.isRead = !this.isRead
+    }
 };
 
 function addBookToLibrary(title, pages, author, isRead) {
@@ -19,12 +20,16 @@ function displayBook(book, library, i) {
     title.textContent = book.title;
     let infos = document.createElement("p")
     let deleteButton = document.createElement("button");
+    let toggleisReadButton = document.createElement("button");
+    toggleisReadButton.innerText = "Read/Unread"
+    toggleisReadButton.className = "toggleisReadButton";
     deleteButton.className = "deleteButton"
     deleteButton.innerText = "Remove book"
     infos.textContent = `by ${book.author}, ${book.pages} pages, ${book.isRead ? 'already finished' : 'not read yet'}`;
     article.appendChild(title);
     article.appendChild(infos);
     article.appendChild(deleteButton);
+    article.appendChild(toggleisReadButton);
     library.appendChild(article);
 };
 
@@ -32,6 +37,25 @@ function displayLibrary(myLibrary) {
     let library = document.querySelector(".libraryContainer")
     for (let i = 0; i < myLibrary.length; i++) {
         displayBook(myLibrary[i], library, i);
+    }
+    deleteButtons = document.querySelectorAll('.deleteButton');
+    for (deleteButtonIndex = 0; deleteButtonIndex < deleteButtons.length; deleteButtonIndex++) {
+        deleteButtons[deleteButtonIndex].addEventListener("click", (e) => {
+            e.preventDefault();
+            myLibrary.splice([e.target.parentElement.id], 1);
+            eraseLibrary();
+            displayLibrary(myLibrary);
+        })
+    }
+
+    toggleButtons = document.querySelectorAll(".toggleisReadButton");
+    for (i = 0; i < toggleButtons.length; i++) {
+        toggleButtons[i].addEventListener("click", (e) => {
+            e.preventDefault();
+            myLibrary[e.target.parentElement.id].toggleIsRead();
+            eraseLibrary();
+            displayLibrary(myLibrary);
+        })
     }
 };
 
@@ -58,6 +82,8 @@ let book3 = new Book("1984", 328, "George Orwell", true);
 // Example 4
 let book4 = new Book("The Great Gatsby", 180, "F. Scott Fitzgerald", false);
 
+
+const myLibrary = [];
 myLibrary.push(book1, book2, book3, book4);
 displayLibrary(myLibrary);
 
@@ -68,16 +94,6 @@ const confirmNewBookButton = document.querySelector(".confirmNewBook");
 addNewBookButton.addEventListener("click", () => {
     dialogBox.showModal();
 });
-
-deleteButtons = document.querySelectorAll('.deleteButton');
-for (deleteButtonIndex = 0; deleteButtonIndex < deleteButtons.length; deleteButtonIndex++) {
-    deleteButtons[deleteButtonIndex].addEventListener("click", (e) => {
-        e.preventDefault();
-        myLibrary.splice([e.target.parentElement.id], [e.target.parentElement.id]);
-        e.target.parentElement.innerHTML = "";
-        console.log("Success")
-    })
-}
 
 confirmNewBookButton.addEventListener("click", (e) => {
     e.preventDefault()
