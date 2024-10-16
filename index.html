@@ -4,10 +4,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
     <title>Document</title>
 </head>
 
 <body>
+
+
+    <button class="addNewBook" type="submit">Add Book</button>
+    <div class="libraryContainer">
+        <dialog class="addBookDialog">
+            <form class="addBookForm">
+                <label for="bookTitleInput">Book Title</label>
+                <input type="text" name="bookTitleInput" class="formInputid=">
+                <label for="bookPagesInput">Pages number</label>
+                <input type="number" name="bookPagesInput" class="formInputid=">
+                <label for="bookAuthorInput">Book author</label>
+                <input type="text" name="bookAuthorInput" class="formInputid=">
+                <label for="bookIsReadInput">Already read it ?</label>
+                <input type="checkbox" name="bookIsReadInput" id="">
+                <input type="submit" class="confirmNewBook" value="Confirm new book">
+            </form>
+        </dialog>
+
+    </div>
     <script src="scripts.js"></script>
 </body>
 

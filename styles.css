@@ -1,0 +1,5 @@
+.addBookForm {
+
+    display: flex;
+    flex-direction: column;
+}
